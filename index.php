@@ -13,21 +13,11 @@ if (isset($_SESSION['total'])) {
 }
 
 if ('POST' === $_SERVER['REQUEST_METHOD']) {
-    $quantities = $_POST['quantity'];
 
-    foreach ($quantities as $key => $qty) {
-        $products[$key]['quantity'] = $qty;
-        $products[$key]['subtotal'] =
-            $products[$key]['quantity'] * $products[$key]['price'];
-    }
-
+    $products = updateQuantities($_POST['quantity'], $products);
     $_SESSION['products'] = $products;
 
-    $total = 0;
-    foreach ($products as $product) {
-        $total += $products[$key]['subtotal'];
-    }
-
+    $total = updateTotal($products);
     $_SESSION['total'] = $total;
 
     header('Location: /');

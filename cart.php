@@ -40,3 +40,23 @@ $products = [
 ];
 
 $total = 0;
+
+function updateQuantities($quantities, $products)
+{
+    foreach ($quantities as $key => $qty) {
+        $products[$key]['quantity'] = $qty;
+        $products[$key]['subtotal'] =
+            $products[$key]['quantity'] * $products[$key]['price'];
+    }
+
+    return $products;
+}
+
+function updateTotal($products)
+{
+    $total = 0;
+    foreach ($products as $key => $product) {
+        $total += $products[$key]['subtotal'];
+    }
+    return $total;
+}
