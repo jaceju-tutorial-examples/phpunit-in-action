@@ -26,7 +26,7 @@
             </thead>
             <tbody>
                 <?php
-                foreach ($products as $key => $product):
+                foreach ($cart->getProducts() as $key => $product):
                 ?>
                 <tr>
                     <td class="col-sm-8 col-md-6">
@@ -48,7 +48,7 @@
                     <td>   </td>
                     <td>   </td>
                     <td class="text-right"><h3>總計</h3></td>
-                    <td class="text-right"><h3><strong>$<?= number_format($total) ?></strong></h3></td>
+                    <td class="text-right"><h3><strong>$<?= number_format($cart->getTotal()) ?></strong></h3></td>
                 </tr>
                 <tr>
                     <td>   </td>
