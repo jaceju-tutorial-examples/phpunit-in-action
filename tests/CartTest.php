@@ -5,7 +5,7 @@ require __DIR__ . '/../Cart.php';
 
 class CartTest extends PHPUnit_Framework_TestCase
 {
-    public function testCart()
+    public function testUpdateQuantitiesAndGetTotal()
     {
         $cart = new Cart();
 
@@ -22,8 +22,11 @@ class CartTest extends PHPUnit_Framework_TestCase
         ];
         $cart->updateQuantities($quantities);
         $this->assertEquals(797, $cart->getTotal());
+    }
 
-        // Test 3
+    public function testGetProducts()
+    {
+        $cart = new Cart();
         $products = $cart->getProducts();
         $this->assertEquals(6, count($products));
         $this->assertEquals(2, $products[3]['quantity']);
