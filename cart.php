@@ -60,3 +60,31 @@ function updateTotal($products)
     }
     return $total;
 }
+
+// 測試碼
+if (isset($argv[1]) && 'debug' === strtolower($argv[1])) {
+
+    // Test 1
+    $quantities = [
+        1, 0, 0, 0, 0, 0,
+    ];
+    $products = updateQuantities($quantities, $products);
+    $total = updateTotal($products);
+    if (199 !== $total) {
+        echo "Test 1 failed!\n";
+    } else {
+        echo "Test 1 OK!\n";
+    }
+
+    // Test 2
+    $quantities = [
+        1, 0, 0, 2, 0, 0,
+    ];
+    $products = updateQuantities($quantities, $products);
+    $total = updateTotal($products);
+    if (797 !== $total) {
+        echo "Test 2 failed!\n";
+    } else {
+        echo "Test 2 OK!\n";
+    }
+}
