@@ -1,24 +1,19 @@
 <?php
 
-require __DIR__ . '/cart.php';
+require __DIR__ . '/Cart.php';
 
 session_start();
 
-if (isset($_SESSION['products'])) {
-    $products = $_SESSION['products'];
-}
-
-if (isset($_SESSION['total'])) {
-    $total = $_SESSION['total'];
+if (isset($_SESSION['cart'])) {
+    $cart = unserialize($_SESSION['cart']);
+} else {
+    $cart = new Cart();
 }
 
 if ('POST' === $_SERVER['REQUEST_METHOD']) {
 
-    $products = updateQuantities($_POST['quantity'], $products);
-    $_SESSION['products'] = $products;
-
-    $total = updateTotal($products);
-    $_SESSION['total'] = $total;
+    $cart->updateQuantities($_POST['quantity']);
+    $_SESSION['cart'] = serialize($cart);
 
     header('Location: /');
     exit;
