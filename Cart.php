@@ -56,6 +56,10 @@ class Cart
     public function updateQuantities($quantities)
     {
         foreach ($quantities as $key => $qty) {
+            if (!is_int($qty) || (int) $qty < 0) {
+                throw new CartException("數量不正確，請輸入 0 或 0 以上的整數", 1);
+            }
+
             $this->products[$key]['quantity'] = $qty;
             $this->products[$key]['subtotal'] =
                 $this->products[$key]['quantity'] *
@@ -72,4 +76,8 @@ class Cart
     {
         return ['products', 'total'];
     }
+}
+
+class CartException extends Exception
+{
 }

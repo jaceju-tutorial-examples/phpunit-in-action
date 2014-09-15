@@ -11,7 +11,6 @@ class CartTest extends PHPUnit_Framework_TestCase
     public function testUpdateQuantitiesAndGetTotal($quantities, $expected)
     {
         $cart = new Cart();
-
         $cart->updateQuantities($quantities);
         $this->assertEquals($expected, $cart->getTotal());
     }
@@ -22,6 +21,14 @@ class CartTest extends PHPUnit_Framework_TestCase
             [ [ 1, 0, 0, 0, 0, 0 ], 199 ],
             [ [ 1, 0, 0, 2, 0, 0 ], 797 ],
         ];
+    }
+
+    public function testUpdateQuantitiesWithException()
+    {
+        $this->setExpectedException('CartException');
+        $cart = new Cart();
+        $quantities = [ -1, 0, 0, 0, 0, 0 ];
+        $cart->updateQuantities($quantities); // 預期會產生一個 Exception
     }
 
     public function testGetProducts()

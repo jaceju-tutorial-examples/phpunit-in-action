@@ -12,8 +12,14 @@ if (isset($_SESSION['cart'])) {
 
 if ('POST' === $_SERVER['REQUEST_METHOD']) {
 
-    $cart->updateQuantities($_POST['quantity']);
-    $_SESSION['cart'] = serialize($cart);
+    try {
+        $cart->updateQuantities($_POST['quantity']);
+        $_SESSION['cart'] = serialize($cart);
+    } catch (CartException $e) {
+        header('Content-Type: text/plain; charset="utf-8"');
+        echo $e->getMessage();
+        exit;
+    }
 
     header('Location: /');
     exit;
