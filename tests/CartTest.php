@@ -7,6 +7,7 @@ class CartTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider provider
+     * @group update
      */
     public function testUpdateQuantitiesAndGetTotal($quantities, $expected)
     {
@@ -23,6 +24,10 @@ class CartTest extends PHPUnit_Framework_TestCase
         ];
     }
 
+    /**
+     * @group update
+     * @group exception
+     */
     public function testUpdateQuantitiesWithException()
     {
         $this->setExpectedException('CartException');
@@ -31,6 +36,9 @@ class CartTest extends PHPUnit_Framework_TestCase
         $cart->updateQuantities($quantities); // 預期會產生一個 Exception
     }
 
+    /**
+     * @group get
+     */
     public function testGetProducts()
     {
         $cart = new Cart();
