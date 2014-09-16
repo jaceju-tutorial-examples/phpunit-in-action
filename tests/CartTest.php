@@ -32,6 +32,7 @@ class CartTest extends PHPUnit_Framework_TestCase
         return [
             [ [ 1, 0, 0, 0, 0, 0 ], 199 + 20 ],
             [ [ 1, 0, 0, 2, 0, 0 ], 797 ],
+            [ [ 0, 0, 0, 0, 0, 0 ], 0 ],
         ];
     }
 

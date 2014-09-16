@@ -79,7 +79,7 @@ class Cart
         }
 
         // 運費
-        if ($this->total < 500) {
+        if ($this->total > 0 && $this->total < 500) {
             $this->setQuantity(self::FREIGHT_KEY, 1);
             $this->total += $this->products[self::FREIGHT_KEY]['subtotal'];
         } else {
