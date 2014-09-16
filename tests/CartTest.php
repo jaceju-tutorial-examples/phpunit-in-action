@@ -55,4 +55,11 @@ class CartTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(6, count($products));
         $this->assertEquals(0, $products[3]['quantity']);
     }
+
+    public function testSerialize()
+    {
+        $serial = serialize($this->cart);
+        $cart = unserialize($serial);
+        $this->assertEquals($cart, $this->cart);
+    }
 }
