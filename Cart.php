@@ -69,10 +69,7 @@ class Cart
                 throw new CartException("$key, $qty, 數量不正確，請輸入 0 或 0 以上的整數", 1);
             }
 
-            $this->products[$key]['quantity'] = $qty;
-            $this->products[$key]['subtotal'] =
-                $this->products[$key]['quantity'] *
-                $this->products[$key]['price'];
+            $this->setQuantity($key, $qty);
         }
 
         // 計算總金額
@@ -83,19 +80,19 @@ class Cart
 
         // 運費
         if ($this->total < 500) {
-            $this->products[self::FREIGHT_KEY]['quantity'] = 1;
-            $this->products[self::FREIGHT_KEY]['subtotal'] =
-                $this->products[self::FREIGHT_KEY]['quantity'] *
-                $this->products[self::FREIGHT_KEY]['price'];
-
-            // 加上運費
+            $this->setQuantity(self::FREIGHT_KEY, 1);
             $this->total += $this->products[self::FREIGHT_KEY]['subtotal'];
         } else {
-            $this->products[self::FREIGHT_KEY]['quantity'] = 0;
-            $this->products[self::FREIGHT_KEY]['subtotal'] =
-                $this->products[self::FREIGHT_KEY]['quantity'] *
-                $this->products[self::FREIGHT_KEY]['price'];
+            $this->setQuantity(self::FREIGHT_KEY, 0);
         }
+    }
+
+    public function setQuantity($key, $qty)
+    {
+        $this->products[$key]['quantity'] = $qty;
+        $this->products[$key]['subtotal'] =
+            $this->products[$key]['quantity'] *
+            $this->products[$key]['price'];
     }
 
     public function __sleep()
