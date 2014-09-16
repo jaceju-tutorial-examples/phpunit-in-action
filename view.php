@@ -36,9 +36,19 @@
                         </div>
                     </div></td>
                     <td class="col-sm-1 col-md-1">
+                    <?php if ($key !== Cart::FREIGHT_KEY): ?>
                     <input type="text" name="quantity[<?= $key ?>]" class="form-control" value="<?= $product['quantity'] ?>">
+                    <?php else: ?>
+                    <input type="hidden" name="quantity[<?= $key ?>]" value="0">
+                    <?php endif; ?>
                     </td>
-                    <td class="col-sm-1 col-md-1 text-right"><strong>$<?= number_format($product['price']) ?></strong></td>
+                    <td class="col-sm-1 col-md-1 text-right">
+                    <?php if ($key !== Cart::FREIGHT_KEY): ?>
+                    <strong>$<?= number_format($product['price']) ?></strong>
+                    <?php else: ?>
+                    --
+                    <?php endif; ?>
+                    </td>
                     <td class="col-sm-1 col-md-1 text-right"><strong>$<?= number_format($product['subtotal']) ?></strong></td>
                 </tr>
                 <?php

@@ -39,7 +39,15 @@ class Cart
             'price'    => 499,
             'subtotal' => 0,
         ],
+        [
+            'name'     => '運費',
+            'quantity' => 0,
+            'price'    => 20,
+            'subtotal' => 0,
+        ],
     ];
+
+    CONST FREIGHT_KEY = 6;
 
     private $total = 0;
 
@@ -55,9 +63,10 @@ class Cart
 
     public function updateQuantities($quantities)
     {
+        // 更新商品數量並算出小計
         foreach ($quantities as $key => $qty) {
-            if (!is_int($qty) || (int) $qty < 0) {
-                throw new CartException("數量不正確，請輸入 0 或 0 以上的整數", 1);
+            if (!is_numeric($qty) || (int) $qty < 0) {
+                throw new CartException("$key, $qty, 數量不正確，請輸入 0 或 0 以上的整數", 1);
             }
 
             $this->products[$key]['quantity'] = $qty;
@@ -66,9 +75,26 @@ class Cart
                 $this->products[$key]['price'];
         }
 
+        // 計算總金額
         $this->total = 0;
         foreach ($this->products as $key => $product) {
             $this->total += $product['subtotal'];
+        }
+
+        // 運費
+        if ($this->total < 500) {
+            $this->products[self::FREIGHT_KEY]['quantity'] = 1;
+            $this->products[self::FREIGHT_KEY]['subtotal'] =
+                $this->products[self::FREIGHT_KEY]['quantity'] *
+                $this->products[self::FREIGHT_KEY]['price'];
+
+            // 加上運費
+            $this->total += $this->products[self::FREIGHT_KEY]['subtotal'];
+        } else {
+            $this->products[self::FREIGHT_KEY]['quantity'] = 0;
+            $this->products[self::FREIGHT_KEY]['subtotal'] =
+                $this->products[self::FREIGHT_KEY]['quantity'] *
+                $this->products[self::FREIGHT_KEY]['price'];
         }
     }
 
