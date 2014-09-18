@@ -9,6 +9,11 @@ class Cart
     public function checkout()
     {
     }
+
+    public function getTotal()
+    {
+
+    }
 }
 
 class CartException extends Exception
