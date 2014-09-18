@@ -36,4 +36,15 @@ class CartTest extends PHPUnit_Framework_TestCase
         $this->cart->addProduct($this->products[0]); // 紅標商品 1
         $this->cart->checkout();
     }
+
+    /**
+     * @desc 購物車加入一個紅標商品 1 及綠標商品 1 ，總金額應為 ($200 + $80) * 0.75 = $210 。
+     */
+    public function testAddOneRedProudctAndOneGreenProduct()
+    {
+        $this->cart->addProduct($this->products[0]); // 紅標商品 1
+        $this->cart->addProduct($this->products[2]); // 綠標商品 1
+        $this->cart->checkout();
+        $this->assertEquals(210, $this->cart->getTotal());
+    }
 }
