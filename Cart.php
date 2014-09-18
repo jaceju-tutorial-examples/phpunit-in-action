@@ -2,7 +2,7 @@
 
 class Cart
 {
-    public function addProduct(Product $prduct)
+    public function addProduct(Product $product)
     {
     }
 
